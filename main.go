@@ -44,19 +44,24 @@ func draw(window *app.Window) error {
                     Spacing: layout.SpaceStart,
                 }.Layout(graphical_ctx,
                     layout.Rigid(
-                        // Create button with pointer from the clickable widget 'startButton'
-                        func(graphical_ctx C) D {
-                            button := material.Button(theme, &startButton, "Start")
-                            // button.Background = emeraldColor
-                            return button.Layout(graphical_ctx)
-                        },
-                    ),
-                    layout.Rigid(
-                        layout.Spacer{Height: unit.Dp(30)}.Layout,
-                    ),
-                )
+                    func(graphical_ctx C) D {
+                        margins := layout.Inset{
+                            Top: unit.Dp(25),
+                            Bottom: unit.Dp(25),
+                            Right: unit.Dp(35),
+                            Left: unit.Dp(35),
+                        }
 
-                event.Frame(graphical_ctx.Ops)
+                        return margins.Layout(graphical_ctx, func(graphical_ctx C) D {
+                            button := material.Button(theme, &startButton, "Start")
+                                // button.Background = emeraldColor
+                                return button.Layout(graphical_ctx)
+                        },)
+                    },
+                ),
+            )
+
+            event.Frame(graphical_ctx.Ops)
 
             case system.DestroyEvent:
                 return event.Err
