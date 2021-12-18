@@ -103,6 +103,10 @@ func draw(window * app.Window) error {
               if start_button.Clicked() {
                 is_boiling = !is_boiling
 
+                if progress_value >= 1 {
+                    progress_value = 0
+                }
+
                 input_string := boil_duration_input.Text()
                 input_string = strings.TrimSpace(input_string)
                 input_float, _ := strconv.ParseFloat(input_string, 32)
